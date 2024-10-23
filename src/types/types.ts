@@ -13,7 +13,7 @@ type Note = {
 
 type Tag = {
   id: string;
-  value: string;
+  description?: string;
 }
 
 export type { User, Note, Tag }
