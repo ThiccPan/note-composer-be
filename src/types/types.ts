@@ -8,7 +8,7 @@ type Note = {
   id: string;
   title: string;
   content: string;
-  tags?: Tag[];
+  tagsId?: string[];
 }
 
 type Tag = {
