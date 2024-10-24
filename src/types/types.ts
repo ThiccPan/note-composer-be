@@ -16,4 +16,9 @@ type Tag = {
   description?: string;
 }
 
-export type { User, Note, Tag }
+type AuthCredentials = {
+  id: string;
+  email: string;
+}
+
+export type { User, Note, Tag, AuthCredentials }
