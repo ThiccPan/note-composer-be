@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AuthCredentials, Note, Tag } from "../types/types";
 import { db } from "..";
 import { StatusCodes } from "http-status-codes";
+import { checkIfUserNotesExist } from "../helper/FirebaseUser";
 
 const GetTags = async (req: Request, res: Response) => {
   const userData: AuthCredentials = res.locals.userData
@@ -107,12 +108,6 @@ const DeleteTags = async (req: Request, res: Response) => {
       res.status(500).json({ message: "Internal server error" });
     }
   }
-}
-
-const checkIfUserNotesExist = async (userId: string): Promise<boolean> => {
-  const tagDocRef = db.collection(`/notes/`).doc(userId)
-  const tagDocData = await tagDocRef.get()
-  return tagDocData.exists
 }
 
 export { GetTags, AddTags, UpdateTags, DeleteTags }
