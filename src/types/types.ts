@@ -9,6 +9,8 @@ type Note = {
   title: string;
   content: string;
   tagsId?: string[];
+  createdAt: Date;
+  updatedAt: Date
 }
 
 type Tag = {
