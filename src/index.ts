@@ -1,7 +1,7 @@
 // src/index.ts
 import express, { Express } from "express";
 import dotenv from "dotenv";
-import GetNotes from "./handler/NotesHandler";
+import { AddNotes, DeleteNotes, GetNotes } from "./handler/NotesHandler";
 import { AddTags, DeleteTags, GetTags } from "./handler/TagsHandler";
 
 import 'dotenv/config'
@@ -13,6 +13,9 @@ import { validateData } from "./middleware/ValidationMiddleware";
 import { addTagsSchema } from "./schemas/TagsSchema";
 import bodyParser from "body-parser";
 import { AuthMiddleware, MockAuthMiddleware } from "./middleware/AuthMiddleware";
+import { registerUserSchema } from "./schemas/UsersSchema";
+import { GetCurrentUserData, RegisterUsers } from "./handler/UserHandler";
+import { addNoteSchema } from "./schemas/NotesSchema";
 
 dotenv.config();
 const firebaseSecret = process.env.FIREBASE_SECRET
@@ -38,6 +41,11 @@ const app: Express = express();
 const port = process.env.PORT || 8000;
 app.use(bodyParser.json());
 
+const usersRouter = express.Router();
+usersRouter.use(MockAuthMiddleware())
+usersRouter.get('/users', GetCurrentUserData)
+usersRouter.post('/users/register', validateData(registerUserSchema), RegisterUsers)
+
 const tagsRouter = express.Router();
 tagsRouter.use(MockAuthMiddleware())
 tagsRouter.get("/tags", GetTags);
@@ -45,9 +53,12 @@ tagsRouter.post("/tags", validateData(addTagsSchema), AddTags);
 tagsRouter.delete("/tags/:id", DeleteTags);
 
 const notesRouter = express.Router();
+tagsRouter.use(MockAuthMiddleware())
 notesRouter.get("/notes", GetNotes);
+notesRouter.post("/notes", validateData(addNoteSchema), AddNotes);
+notesRouter.delete("/notes/:id", DeleteNotes);
 
-app.use("/v1", tagsRouter, notesRouter);
+app.use("/v1", usersRouter, tagsRouter, notesRouter);
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
