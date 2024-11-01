@@ -10,7 +10,7 @@ export function AuthMiddleware() {
       if (!token) {
         throw Error("")
       }
-      console.log("token is:", token)
+      console.log("token is exist:", token != null)
       const decodedToken = await auth.verifyIdToken(token!, true)
       const userData: AuthCredentials = {
         id: decodedToken.uid,
@@ -19,8 +19,9 @@ export function AuthMiddleware() {
       res.locals.userData = userData
       next();
     } catch (error) {
+      console.error(error)
       if (error instanceof Error) {
-        res.status(StatusCodes.UNAUTHORIZED).json({ error: 'unauthorized', details: error.message });
+        res.status(StatusCodes.UNAUTHORIZED).json({ error: 'unauthorized', message: error.message });
       } else {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
       }

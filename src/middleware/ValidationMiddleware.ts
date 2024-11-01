@@ -8,6 +8,7 @@ export function validateData(schema: z.ZodObject<any, any>) {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       schema.parse(req.body);
+      console.log('data is valid')
       next();
     } catch (error) {
       if (error instanceof ZodError) {
