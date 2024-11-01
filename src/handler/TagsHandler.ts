@@ -5,6 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import { checkIfUserNotesExist } from "../helper/FirebaseUser";
 
 const GetTags = async (req: Request, res: Response) => {
+  console.log("getting tags")
   const userData: AuthCredentials = res.locals.userData
   const isNoteCollectionExist = await checkIfUserNotesExist(userData.id)
   if (!isNoteCollectionExist) {
@@ -14,7 +15,7 @@ const GetTags = async (req: Request, res: Response) => {
 
   const data = await db.collection(`/notes/${userData.id}/tags`).get()
   if (data.empty) {
-    res.status(StatusCodes.NOT_FOUND).json({ error: "no tags found" })
+    res.status(StatusCodes.NOT_FOUND).json({ message: "no tags found" })
     return
   }
   let tagsList: Tag[] = []
@@ -89,16 +90,30 @@ const DeleteTags = async (req: Request, res: Response) => {
       // delete tag that occur in each notes where the tag is used
       const tagNotesDocRef = tagDocRef.collection("tagNotes")
       const tagNotesDocList = await tagNotesDocRef.listDocuments()
-      tagNotesDocList.forEach((tagNoteDoc) => {
-        const noteIdToUpdate = tagNoteDoc.id
-        const noteDocRefToUpdate = db.collection(`notes/${userData.id}/notes`).doc(noteIdToUpdate)
+      const noteList = await Promise.all(tagNotesDocList.map(async (tagNoteDoc) => {
+        const noteId = tagNoteDoc.id
+        const noteDocRef = db.collection(`notes/${userData.id}/notes`).doc(noteId)
 
-        const noteTagDocRefToDelete = noteDocRefToUpdate.collection("noteTags").doc(tagId)
-        t.delete(noteTagDocRefToDelete)
-      })
+        const noteFetchRes = await t.get(noteDocRef)
+        if (!noteFetchRes.exists) {
+          throw Error(`tag: ${tagNoteDoc} not found`)
+        }
+        return noteFetchRes
+      }))
+
+      Promise.all(noteList.map(async (noteDoc) => {
+        let newNoteTags: string[]
+        const noteData = noteDoc.data() as Note
+
+        // update
+        if (noteData.tagsId) {
+          newNoteTags = noteData.tagsId.filter((noteTagId) => noteTagId != tagId)
+          t.update(noteDoc.ref, { tagsId: newNoteTags })
+        }
+      }))
 
       // delete tag data
-      t.delete(tagDocRef)
+      t.delete(tagDocRef, {})
     })
     res.json({ message: "tag successfully deleted" });
   } catch (error) {
