@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase-admin/firestore";
 import { z } from "zod";
 
 export const addNoteSchema = z.object({
@@ -17,3 +18,12 @@ export const updateNoteSchema = z.object({
 })
 
 export type updateNoteType = z.infer<typeof updateNoteSchema>
+
+export type firebaseAddNote = {
+  id: string,
+  title: string,
+  content: string,
+  tagsId: string[],
+  createdAt: Timestamp,
+  updatedAt: Timestamp
+}
