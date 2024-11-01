@@ -6,6 +6,7 @@ import { StatusCodes } from "http-status-codes";
 const RegisterUsers = async (req: Request, res: Response) => {
   try {
     const userData: AuthCredentials = res.locals.userData
+    console.log(userData.id)
 
     let reqNewUser = req.body as User
     console.log("body:", reqNewUser)
