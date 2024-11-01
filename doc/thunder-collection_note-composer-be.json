@@ -1,0 +1,170 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "note-composer-be",
+    "collectionId": "4654df8f-7086-497c-b360-5d3ddffd171d",
+    "dateExported": "2024-11-01T15:06:08.393Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "c3fef6a4-96ac-4eb6-81bc-5acb99cfab94",
+            "colId": "4654df8f-7086-497c-b360-5d3ddffd171d",
+            "containerId": "",
+            "name": "get all tags",
+            "url": "http://localhost:8000/v1/tags",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-10-23T13:41:41.087Z",
+            "modified": "2024-10-23T16:32:36.920Z",
+            "headers": []
+        },
+        {
+            "_id": "a043f3de-f312-42c8-be52-1a662bdcd356",
+            "colId": "4654df8f-7086-497c-b360-5d3ddffd171d",
+            "containerId": "",
+            "name": "add tag",
+            "url": "http://localhost:8000/v1/tags",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-10-23T15:17:42.539Z",
+            "modified": "2024-10-24T02:22:38.829Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": \"tag aa\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "855cda7e-96ad-422d-a8ba-39380c40c983",
+            "colId": "4654df8f-7086-497c-b360-5d3ddffd171d",
+            "containerId": "",
+            "name": "delete tag",
+            "url": "http://localhost:8000/v1/tags/tag 2",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2024-10-23T16:51:27.653Z",
+            "modified": "2024-10-24T02:21:22.844Z",
+            "headers": []
+        },
+        {
+            "_id": "0f05e124-5772-4243-9af7-d47c59a1478f",
+            "colId": "4654df8f-7086-497c-b360-5d3ddffd171d",
+            "containerId": "",
+            "name": "register new user",
+            "url": "http://localhost:8000/v1/users/register",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-10-24T04:39:01.296Z",
+            "modified": "2024-10-24T04:41:56.703Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"user-test-1@gmail.com\",\n  \"username\": \"user-test-1\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "ad9857a5-930b-4a3f-9c78-e56261ff1dae",
+            "colId": "4654df8f-7086-497c-b360-5d3ddffd171d",
+            "containerId": "",
+            "name": "get current user data",
+            "url": "http://localhost:8000/v1/users",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-10-24T05:00:32.596Z",
+            "modified": "2024-10-24T05:01:26.425Z",
+            "headers": []
+        },
+        {
+            "_id": "4a0f5a0e-f865-4c27-97ee-27a1befe9adc",
+            "colId": "4654df8f-7086-497c-b360-5d3ddffd171d",
+            "containerId": "",
+            "name": "add note",
+            "url": "http://localhost:8000/v1/notes",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2024-10-24T06:54:07.252Z",
+            "modified": "2024-10-24T15:24:23.265Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"note9\",\n  \"content\": \"note 9 lorem ipsum\",\n  \"tags\": [\"tag 6\"]\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "7f2c1856-d942-4dc8-bf07-c68e32105c19",
+            "colId": "4654df8f-7086-497c-b360-5d3ddffd171d",
+            "containerId": "",
+            "name": "delete note",
+            "url": "http://localhost:8000/v1/notes/OhNn1dUzK4YTNTV4yOWj",
+            "method": "DELETE",
+            "sortNum": 80000,
+            "created": "2024-10-24T12:31:48.156Z",
+            "modified": "2024-10-24T12:51:00.479Z",
+            "headers": []
+        },
+        {
+            "_id": "e1e69679-8b28-4599-b516-0d6221139194",
+            "colId": "4654df8f-7086-497c-b360-5d3ddffd171d",
+            "containerId": "",
+            "name": "get all notes",
+            "url": "http://localhost:8000/v1/notes",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-10-24T14:31:57.104Z",
+            "modified": "2024-10-26T02:56:59.725Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "after",
+                    "value": "2024-10-24T15:24:06.573Z",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "rows",
+                    "value": "2",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "search",
+                    "value": "",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "sort",
+                    "value": "asc",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "5b30045b-8b97-4bfd-9959-80adf2d53ca2",
+            "colId": "4654df8f-7086-497c-b360-5d3ddffd171d",
+            "containerId": "",
+            "name": "update note",
+            "url": "http://localhost:8000/v1/notes/OhNn1dUzK4YTNTV4yOWj",
+            "method": "PUT",
+            "sortNum": 100000,
+            "created": "2024-11-01T15:05:58.303Z",
+            "modified": "2024-11-01T15:05:58.303Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"\",\n  \"content\": \"\"\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "kfSExwN-MJWqWDx-9igctbaibchQQ5BW_lUaKz8kLkuaYyMRSGKJY3gUNLJn82mZnBpGLDqhAOEvByrvQg4AmQ"
+}
